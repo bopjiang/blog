@@ -1,0 +1,37 @@
+baseURL = "https://bopjiang.github.io"
+languageCode = "en-us"
+title = "HCM"
+theme = "ivy"
+
+
+
+[permalinks]
+    post = "/post/:year/:month/:day/:slug/"
+    note = "/note/:year/:month/:day/:slug/"
+
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+[[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 2
+[[menu.main]]
+    name = "Categories"
+    url = "/categories/"
+    weight = 3
+[[menu.main]]
+    name = "Tags"
+    url = "/tags/"
+    weight = 4
+
+[params]
+    description = "Happy Coding Monkey"
+    footer = "&copy; [bopjiang](https://bopjiang.github.io) 2020 | [Github](https://github.com/bopjiang) | [Twitter](https://twitter.com/bopjiang)"
+
+  highlightjsVersion = "9.12.0"
+  highlightjsCDN = "//cdnjs.cloudflare.com/ajax/libs"
+  highlightjsLang = ["yaml", "tex", "bash", "go", "python"]
+  highlightjsTheme = "github"
+
