@@ -1,7 +1,7 @@
 baseURL = "https://bopjiang.github.io"
 languageCode = "en-us"
 title = "HCM"
-theme = "ivy"
+theme = "hugo-ivy"
 
 
 
