@@ -1,7 +1,3 @@
 [submodule "themes/hugo-ivy"]
 	path = themes/hugo-ivy
 	url = https://github.com/yihui/hugo-ivy.git
-[submodule "public"]
-	path = public
-	url = https://github.com/bopjiang/bopjiang.github.io.git
-	branch = master
