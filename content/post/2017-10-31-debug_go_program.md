@@ -52,7 +52,7 @@ main.foo(0x1d)
 	/Users/bopjiang/code/test/go/stackdump.go:23 +0x7c
 created by main.main
 	/Users/bopjiang/code/test/go/stackdump.go:33 +0xae
-        
+
 goroutine 48 [chan receive, 3 minutes]:
 main.foo(0x0)
 	/Users/bopjiang/code/test/go/stackdump.go:18 +0x43
@@ -117,19 +117,19 @@ created by main.main
 
 ~~~bash
 # CPU Profile
-$ curl -s -o cpu.pprof ./server http://server:port/debug/pprof/profile # 30-second CPU profile
+$ curl -s -o cpu.pprof http://server:port/debug/pprof/profile # 30-second CPU profile
 $ go tool pprof cpu.pprof
 Type: cpu
 Time: Nov 14, 2017 at 7:43pm (CST)
 Duration: 30s, Total samples = 0
 Entering interactive mode (type "help" for commands, "o" for options)
-(pprof) web       
+(pprof) web
 # 会生成SVG图(需要安装graphviz)
 
 # Heap Profile
-go tool pprof ./server http://server:port/debug/pprof/heap    
+go tool pprof http://server:port/debug/pprof/heap
 # goroutine blocking profile
-go tool pprof ./server http://server:port/debug/pprof/block  
+go tool pprof http://server:port/debug/pprof/block
 ~~~
 
 - 通过程序自己上报指标，在TSDB中做回溯分析。程序中buffered channel的长度最好都做下监控。 这块一般都是[Promethues](https://prometheus.io/) 搭配[Grafana](https://grafana.com/)使用。
@@ -138,7 +138,7 @@ go tool pprof ./server http://server:port/debug/pprof/block
 
 ### flame graphs 火焰图
 
-Go 1.11已经在tool中集成了火焰图。
+Go 1.11在tool中集成了火焰图, 而且已经不再需要二进制文件.
 
 ~~~bash
 go tool pprof -http=:8080 /path/to/profile
