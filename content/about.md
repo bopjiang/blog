@@ -16,4 +16,4 @@ date: '2020-05-30'
 > Three passions, simple but overwhelmingly strong, have governed my life: the longing
 > for love, the search for knowledge, and unbearable pity for the suffering of mankind.
 >
-> --- Bertrand Russell[⁺](https://www.brainyquote.com/quotes/bertrand_russell_108745)
+> --- Bertrand Russell[⁺](http://www.quotationspage.com/quote/3504.html)
