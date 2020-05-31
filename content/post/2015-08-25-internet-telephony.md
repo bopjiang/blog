@@ -1,7 +1,7 @@
 ---
 date: 2015-08-25
 categories:
-  - blog
+  - tech
 description: ansible, remote ssh
 tags:
   - VOIP

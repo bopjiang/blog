@@ -1,7 +1,7 @@
 ---
 date: 2015-01-23
 categories:
-  - blog
+  - tech
 description: Programming Storm using Pyleus
 tags:
   - Database

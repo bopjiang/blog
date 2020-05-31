@@ -1,7 +1,7 @@
 ---
 date: 2014-12-22
 categories:
-  - blog
+  - tech
 description: install storm cluster using docker
 tags:
   - docker

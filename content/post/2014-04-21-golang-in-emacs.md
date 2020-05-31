@@ -1,7 +1,7 @@
 ---
 date: 2014-04-21
 categories:
-  - blog
+  - tech
 description: golang programming in emacs
 tags:
   - linux

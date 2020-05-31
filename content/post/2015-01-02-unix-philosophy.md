@@ -1,7 +1,7 @@
 ---
 date: 2015-01-02
 categories:
-  - blog
+  - tech
 description: unix philosophy
 tags:
   - linux

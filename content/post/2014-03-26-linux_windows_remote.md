@@ -1,7 +1,7 @@
 ---
 date: 2014-03-26
 categories:
-  - blog
+  - tech
 description: 远程访问remote
 tags:
   - linux

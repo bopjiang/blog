@@ -1,7 +1,7 @@
 ---
 date: 2014-12-01
 categories:
-  - blog
+  - tech
 description: graphing
 tags:
   - metrics

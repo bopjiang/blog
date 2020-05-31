@@ -1,7 +1,7 @@
 ---
 date: 2014-03-21
 categories:
-  - blog
+  - tech
 description: Python UDP client
 tags:
   - network

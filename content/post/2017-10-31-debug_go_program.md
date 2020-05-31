@@ -1,7 +1,7 @@
 ---
 date: 2017-10-31
 categories:
-  - blog
+  - tech
 description: debug go program
 tags:
   - Golang

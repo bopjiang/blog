@@ -1,7 +1,7 @@
 ---
 date: 2014-12-07
 categories:
-  - blog
+  - tech
 description: XBMC on Respberry Pi
 tags:
   - Raspberry Pi

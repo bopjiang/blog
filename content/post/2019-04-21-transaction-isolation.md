@@ -1,7 +1,7 @@
 ---
 date: 2019-04-21
 categories:
-  - blog
+  - tech
 description: transaction isolation
 tags:
   - Database

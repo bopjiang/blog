@@ -1,7 +1,7 @@
 ---
 date: 2017-08-15
 categories:
-  - doc
+  - tech
 description: terminology in open source
 tags: []
 title: 开源常用术语

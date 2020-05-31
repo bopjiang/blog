@@ -7,7 +7,7 @@ theme = "hugo-ivy"
 
 [permalinks]
     post = "/post/:year/:month/:day/:slug/"
-    note = "/note/:year/:month/:day/:slug/"
+    note = "/note/:slug/"
 
 [[menu.main]]
     name = "Home"
@@ -17,14 +17,26 @@ theme = "hugo-ivy"
     name = "About"
     url = "/about/"
     weight = 2
+
+[[menu.main]]
+    name = "Blog"
+    url = "/post/"
+    weight = 3
+
+[[menu.main]]
+    name = "Note"
+    url = "/note/"
+    weight = 4
+
 [[menu.main]]
     name = "Categories"
     url = "/categories/"
-    weight = 3
+    weight = 5
+    
 [[menu.main]]
     name = "Tags"
     url = "/tags/"
-    weight = 4
+    weight = 6
 
 [params]
     description = "Happy Coding Monkey"

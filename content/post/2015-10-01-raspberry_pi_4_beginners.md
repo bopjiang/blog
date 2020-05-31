@@ -1,7 +1,7 @@
 ---
 date: 2015-10-01
 categories:
-  - blog
+  - tech
 description: Raspberry Pi for beginners
 tags:
   - Raspberry Pi

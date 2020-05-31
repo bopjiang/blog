@@ -1,7 +1,7 @@
 ---
 date: 2014-03-20
 categories:
-  - blog
+  - tech
 description: ip地址统计
 tags:
   - linux

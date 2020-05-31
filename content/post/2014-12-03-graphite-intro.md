@@ -1,7 +1,7 @@
 ---
 date: 2014-12-03
 categories:
-  - blog
+  - tech
 description: Graphite
 tags:
   - metrics

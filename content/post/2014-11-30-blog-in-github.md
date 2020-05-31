@@ -1,7 +1,7 @@
 ---
 date: 2014-11-30
 categories:
-  - blog
+  - tech
 description: blog
 tags: []
 title: 使用jekyll-bootstrap和github建立个人博客

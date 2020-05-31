@@ -1,7 +1,7 @@
 ---
 date: 2019-03-02
 categories:
-  - blog
+  - tech
 description: http go program
 tags:
   - Golang

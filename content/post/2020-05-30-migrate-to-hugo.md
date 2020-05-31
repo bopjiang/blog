@@ -2,7 +2,7 @@
 title: "博客迁移至Hugo"
 date: 2020-05-30T07:25:48+08:00
 categories:
-  - blog
+  - tech
 ---
 
 
@@ -20,13 +20,37 @@ git rm --cached <asubmodule>
 rm -rf .git/modules/<asubmodule>
 ```
 
-还有, 为了提交.md代码后, 博客能自动渲染, 使用Github Action建立了个CD流程. 
+还有, 为了提交.md文件后, 博客能自动渲染, 使用Github Action建立了个CD流程.
+```yaml
+name: Push to GitHub Pages on push to master
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v1
+        with:
+          submodules: 'true' ## 使用了submodule
+
+      - name: Deploy the site
+        uses: benmatselby/hugo-deploy-gh-pages@v1.4.0
+        env:
+          HUGO_VERSION: 0.71.1
+          TARGET_REPO: bopjiang/bopjiang.github.io
+          TOKEN: ${{ secrets.TOKEN }} ## access token, 可惜不能给单个库做授权.
+```
 
 最后, 建立两个代码仓库:
  - [blog](https://github.com/bopjiang/blog), 存放.md文件
  - [bopjiang.github.io](https://github.com/bopjiang/bopjiang.github.io), 存放生成的静态HTML文件.
 
-做完的效果就是, Markdown格式的博客文件提交后, 1分钟内网站上[bopjiang.github.io](https://bopjiang.github.io)就能看到效果. 整个流程在github上就搞定, 没有其他依赖.
+做完的效果就是, Markdown格式的博客文件提交后, 1分钟内网站[bopjiang.github.io](https://bopjiang.github.io)上就能看到效果. 整个流程在github上就搞定, 没有其他依赖.
 
 
 ## 参考

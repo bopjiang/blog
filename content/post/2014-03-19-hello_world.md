@@ -1,7 +1,7 @@
 ---
 date: 2014-03-19
 categories:
-  - blog
+  - doc
 description: 测试
 tags: []
 title: Hello world

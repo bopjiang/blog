@@ -1,7 +1,7 @@
 ---
 date: 2015-01-12
 categories:
-  - blog
+  - tech
 description: stop writing technical documentation using MS Word
 tags:
   - wiki

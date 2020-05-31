@@ -1,7 +1,7 @@
 ---
 date: 2019-05-05
 categories:
-  - blog
+  - tech
 description: protocol design
 tags:
   - API

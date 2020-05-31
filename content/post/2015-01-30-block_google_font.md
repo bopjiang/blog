@@ -1,7 +1,7 @@
 ---
 date: 2015-01-30
 categories:
-  - blog
+  - tech
 description: website cannot open because font.google blocked
 tags:
   - gwf
