@@ -3,6 +3,7 @@ languageCode = "en-us"
 title = "HCM"
 theme = "hugo-ivy"
 googleAnalytics = "UA-168084481-1"
+disqusShortname = "bopjianggithubio"
 
 
 [permalinks]
