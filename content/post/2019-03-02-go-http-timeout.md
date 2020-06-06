@@ -40,7 +40,7 @@ title: 关于Go HTTP Timeout
 
 排除了客户端后，开始怀疑Traefik这块配置有问题。查看服务端日志， 果然失败时Taefik有日志打印：
 
-        2018/12/19 09:16:54 reverseproxy.go:395: httputil: ReverseProxy read error during body copy: unexpected EOF
+	2018/12/19 09:16:54 reverseproxy.go:395: httputil: ReverseProxy read error during body copy: unexpected EOF
 
 traefik 上有个issue [#2903](https://github.com/containous/traefik/issues/2903) Truncated body when unexpected EOF，跟我们看到的现象是一样的。切换到Nginx后，问题不出现了, 更加证实了我们的判断。
 
@@ -69,12 +69,12 @@ Traefik的行为不太一样， 默认是不开启缓存的。 客户端读取�
 ~~~go
 // Middleware holds the Middleware configuration.
 type Middleware struct {
-        ForwardAuth       *ForwardAuth       `json:"forwardAuth,omitempty"`
-        IPWhiteList       *IPWhiteList       `json:"ipWhiteList,omitempty"`
-        RateLimit         *RateLimit         `json:"rateLimit,omitempty"`
+	ForwardAuth       *ForwardAuth       `json:"forwardAuth,omitempty"`
+	IPWhiteList       *IPWhiteList       `json:"ipWhiteList,omitempty"`
+	RateLimit         *RateLimit         `json:"rateLimit,omitempty"`
 	MaxConn           *MaxConn           `json:"maxConn,omitempty"`
-        Buffering         *Buffering         `json:"buffering,omitempty"`
-        //...
+	Buffering         *Buffering         `json:"buffering,omitempty"`
+	//...
 
 // Buffering holds the request/response buffering configuration.
 type Buffering struct {
@@ -87,7 +87,7 @@ type Buffering struct {
 
 // server/middleware/middlewares.go
 func (b *Builder) buildConstructor(ctx context.Context, middlewareName string, config config.Middleware) (alice.Constructor, error) {
-        // ... 
+	// ... 
 
 	// Buffering
 	if config.Buffering != nil && config.MaxConn.Amount != 0 {
@@ -121,14 +121,11 @@ defer cancel()
 
 rs, err := GetFileA(ctx, "FileA")
 if err != nil{
-        // Write 500, server side error
-        return
+	// Write 500, server side error
+	return
 }
 
 http.ServeConent(w, req, "FileA", fileATs, rs)
-
-```
-
 ~~~
  
   http.ServeConent开始处理后， 就进入了阻塞状态， 一直到客户端将response读取完。ServeConent也没有返回值能告诉我们处理是否正常结束。
@@ -137,15 +134,15 @@ http.ServeConent(w, req, "FileA", fileATs, rs)
 ~~~go
 ctx, cancel := context.WithCancel(context.TODO())
 timer := time.AfterFunc(time.Minute, func() {
-        // 在此处可以记录超时日志！！！！
-        log.Errorf("get FileA timeout")
+	// 在此处可以记录超时日志！！！！
+	log.Errorf("get FileA timeout")
 	cancel()
 })
 
 rs, err := GetFileA(ctx, "FileA")
 if err != nil{
-        // Write 500, server side error
-        return
+	// Write 500, server side error
+	return
 }
 
 http.ServeConent(w, req, "FileA", fileATs, rs)
@@ -172,13 +169,13 @@ http.ServeConent(w, req, "FileA", fileATs, rs)
 代码逻辑在net/http模块Response.Body的Read()函数中：
 ~~~go
 func (b *body) Read(p []byte) (n int, err error) {
-        // ... 
+	// ... 
 	return b.readLocked(p)
 }
 
 // Must hold b.mu.
 func (b *body) readLocked(p []byte) (n int, err error) {
-        // ...
+	// ...
 	n, err = b.src.Read(p)
 	if err == io.EOF {
 			// If the server declared the Content-Length, our body is a LimitedReader
