@@ -2,6 +2,7 @@
 title: About Me
 author: bopjiang
 date: '2020-05-30'
+disable_comments: true
 ---
 
 * Gopher
