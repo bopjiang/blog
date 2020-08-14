@@ -43,8 +43,13 @@ $ sudo du -sh /var/log/journal
 73M     /var/log/journal
 ```
 
+### only upgrade a single package
 
-# docker
+```bash
+$ sudo apt-get install --only-upgrade
+```
+
+## docker
 ```
 $ sudo du -sh /var/lib/docker
 6.9G    /var/lib/docker
