@@ -44,7 +44,9 @@ docker exec -it tidb-docker-compose_tidb_1  /tidb-server -V
 
 发现一个问题, tidb-docker-compose仓库中的tidb server配置文件config/tidb.toml貌似有问题, 集群启动后有报出如下错误:
 ```bash
-tidb_1         | config file /tidb.toml contained unknown configuration options: log.file.log-rotate, performance.retry-limit, plan-cache, plan-cache.enabled, plan-cache.capacity, plan-cache.shards
+tidb_1         | config file /tidb.toml contained unknown configuration options: 
+log.file.log-rotate, performance.retry-limit, plan-cache, plan-cache.enabled, 
+plan-cache.capacity, plan-cache.shards
 ```
 
 调整日志级别好像也不管用, 日志打印不出. 最后用的`fmt.Printf`.
