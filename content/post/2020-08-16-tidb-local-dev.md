@@ -33,7 +33,23 @@ echo "replace tidb success"
 docker exec -it tidb-docker-compose_tidb_1  /tidb-server -V
 ```
 
-在tidb代码目录执行`../script/replace_tidb.sh`就能替换版本, 也不用污染tidb的代码目录. 关键不用重新build docker镜像和重新创建container, 速度很快.
+在tidb代码目录执行`../script/replace_tidb.sh`就能替换版本, 也不用污染tidb的代码目录.
+
+关键不用重新build docker镜像和重新创建container, 速度很快.
+
+## 增加日志
+
+增加一个事务启动时的日志打印, 需修改TiDB Server代码, repo在[bopjiang/tidb](https://github.com/bopjiang/tidb/tree/2020)
+
+
+发现一个问题, tidb-docker-compose仓库中的tidb server配置文件config/tidb.toml貌似有问题, 集群启动后有报出如下错误:
+```bash
+tidb_1         | config file /tidb.toml contained unknown configuration options: log.file.log-rotate, performance.retry-limit, plan-cache, plan-cache.enabled, plan-cache.capacity, plan-cache.shards
+```
+
+调整日志级别好像也不管用, 日志打印不出. 最后用的`fmt.Printf`.
+
+
 
 
 
