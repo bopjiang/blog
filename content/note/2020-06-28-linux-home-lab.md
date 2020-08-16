@@ -49,6 +49,14 @@ $ sudo du -sh /var/log/journal
 $ sudo apt-get install --only-upgrade
 ```
 
+### iptables
+
+```bash
+# for mosh use
+sudo iptables -I INPUT -p udp -m udp --dport 60002 -j ACCEPT
+```
+
+
 ## docker
 ```
 $ sudo du -sh /var/lib/docker
