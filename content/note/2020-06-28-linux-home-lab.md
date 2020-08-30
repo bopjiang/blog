@@ -58,7 +58,23 @@ sudo iptables -I INPUT -p udp -m udp --dport 60002 -j ACCEPT
 
 
 ## docker
+
 ```
 $ sudo du -sh /var/lib/docker
 6.9G    /var/lib/docker
+```
+
+## create new user
+
+```bash
+$ sudo mkhomedir_helper bopjiang
+## will create /home/bopjiang directory, with .bashrc .profile .bash_logout in it.
+
+## add sudo er
+$ sudo usermod -aG sudo bopjiang
+
+## change sudo without password
+$ sudo tee /etc/sudoers.d/bopjiang <<EOF
+bopjiang ALL=(ALL) NOPASSWD: ALL
+EOF
 ```
