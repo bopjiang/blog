@@ -26,7 +26,7 @@ commands="vcos, ap_output_control, ap_output_post_processing, vchi_test_init, vc
 
 ### contrl LED
 
-config in /boot/config.txt
+config in `/boot/config.txt`
 ```
 #disable ACT and PWR LEDs
 dtparam=act_led_trigger=none
@@ -45,7 +45,7 @@ or set in bash
 
 ## Desktop
 ### set 2560*1440 (2K) resolution display
-2K resolution is not supported by default, we should modify the `/boot/`
+2K resolution is not supported by default, we should modify the `/boot/config.txt`
 
 ```diff
  # uncomment if hdmi display is not detected and composite is being output
