@@ -78,3 +78,14 @@ $ sudo tee /etc/sudoers.d/bopjiang <<EOF
 bopjiang ALL=(ALL) NOPASSWD: ALL
 EOF
 ```
+
+
+## file operation
+### merge two file using *paste*
+
+```bash
+$ paste -d" " file1.txt file2.txt
+/etc/port1-192.9.200.1-255.555.255.0 /etc/port1-192.90.2.1-255.555.0.0
+```
+[link](https://stackoverflow.com/questions/16394176/how-to-merge-two-files-consistently-line-by-line)
+
