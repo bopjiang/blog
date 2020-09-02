@@ -11,6 +11,29 @@ categories:
 sudo raspi-config
 ```
 
+### static IP per SSID in wireless network
+```ini
+# in /etc/wpa_supplicant/wpa_supplicant.conf
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=CN
+
+network={
+        ssid="WIFI-NAME"
+        psk="password"
+}
+```
+
+```ini
+# in /etc/dhcpcd.conf
+# set wifi static ip per ssid
+ssid WIFI-Name
+static ip_address=10.2.32.50/24
+static routers=10.2.32.1
+static domain_name_servers=8.8.8.8
+```
+https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=199081
+
 ## Monitor
 ### Measure CPU temperature
 ```bash
