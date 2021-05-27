@@ -11,6 +11,29 @@ categories:
 sudo raspi-config
 ```
 
+### static IP per SSID in wireless network
+```ini
+# in /etc/wpa_supplicant/wpa_supplicant.conf
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=CN
+
+network={
+        ssid="WIFI-NAME"
+        psk="password"
+}
+```
+
+```ini
+# in /etc/dhcpcd.conf
+# set wifi static ip per ssid
+ssid WIFI-Name
+static ip_address=10.2.32.50/24
+static routers=10.2.32.1
+static domain_name_servers=8.8.8.8
+```
+https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=199081
+
 ## Monitor
 ### Measure CPU temperature
 ```bash
@@ -24,9 +47,28 @@ $ sudo vcgencmd commands
 commands="vcos, ap_output_control, ap_output_post_processing, vchi_test_init, vchi_test_exit, vctest_memmap, vctest_start, vctest_stop, vctest_set, vctest_get, pm_set_policy, pm_get_status, pm_show_stats, pm_start_logging, pm_stop_logging, version, commands, set_vll_dir, set_backlight, set_logging, get_lcd_info, arbiter, cache_flush, otp_dump, test_result, codec_enabled, get_camera, get_mem, measure_clock, measure_volts, enable_clock, scaling_kernel, scaling_sharpness, get_hvs_asserts, get_throttled, measure_temp, get_config, hdmi_ntsc_freqs, hdmi_adjust_clock, hdmi_status_show, hvs_update_fields, pwm_speedup, force_audio, hdmi_stream_channels, hdmi_channel_map, display_power, read_ring_osc, memtest, dispmanx_list, get_rsts, schmoo, render_bar, disk_notify, inuse_notify, sus_suspend, sus_status, sus_is_enabled, sus_stop_test_thread, egl_platform_switch, mem_validate, mem_oom, mem_reloc_stats, hdmi_cvt, hdmi_timings, readmr, pmicrd, pmicwr, bootloader_version, bootloader_config, file"
 ```
 
+### contrl LED
+
+config in `/boot/config.txt`
+```
+#disable ACT and PWR LEDs
+dtparam=act_led_trigger=none
+dtparam=pwr_led_trigger=none
+
+#disable ethernet port LEDs
+dtparam=eth0_led=4
+dtparam=eth1_led=4
+```
+
+or set in bash
+```bash
+# echo 0 > /sys/class/leds/led1/brightness
+```
+
+
 ## Desktop
 ### set 2560*1440 (2K) resolution display
-2K resolution is not supported by default, we should modify the `/boot/`
+2K resolution is not supported by default, we should modify the `/boot/config.txt`
 
 ```diff
  # uncomment if hdmi display is not detected and composite is being output
@@ -48,3 +90,8 @@ commands="vcos, ap_output_control, ap_output_post_processing, vchi_test_init, vc
  # uncomment to increase signal to HDMI, if you have interference, blanking, or
  # no display
 ```
+
+### terminal
+```bash
+sudo apt install guake
+    ```

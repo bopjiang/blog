@@ -18,3 +18,11 @@ press **Shift** when **click**.
 * Navigate to the destination folder
 * Press “**Add here**”
 
+## Chrome
+### disable auto update
+```bash
+$ cat /etc/hosts
+
+# disable chrome update
+127.0.0.1 tools.google.com
+```
