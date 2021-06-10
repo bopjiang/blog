@@ -7,8 +7,9 @@ categories:
 ---
 
 
-今天偶然间发现一台Linux的网卡峰值速度只有100Mbps了, 奇怪.
-虽说是台旧电脑(Thinkpad X61s), 但明明电脑规格是1000Mbps啊.
+今天偶然间发现一台Linux机器的网卡峰值速度只有100Mbps了, 奇怪.
+
+虽说是台旧电脑(Thinkpad X61s), 但明明规格是1000Mbps啊.
 
 查询了下interface信息, 网卡类型`Intel(R) PRO/1000`,`eth0: NIC Link is Up 100 Mbps Full Duplex`, 果然是100Mbps.
 ```bash
@@ -24,10 +25,13 @@ sudo dmesg | grep -i duplex
 [   15.928656] e1000e 0000:00:19.0 eth0: 10/100 speed: disabling TSO
 ```
 
-怎么回事?想想做过什么操作吗?哦, 手动编译升级过内核到5.6版本.
+怎么回事?想想做过什么操作吗?
+
+哦, 手动编译升级过内核到5.6版本.
+
 默认kernel source tree中的驱动有问题.
 
-查了下驱动版本, 上面dmesg信息中, 可以看到驱动是`e1000e`
+从上面dmesg信息中, 可以看到驱动是`e1000e`, 查了下驱动版本, 是3.2
 ```bash
 sudo modinfo e1000e |less
 version:        3.2
@@ -35,7 +39,7 @@ version:        3.2
 
 在Intel的[网站](https://www.intel.com/content/www/us/en/support/articles/000005480/ethernet-products.html)查了下, PRO/1000最新的驱动已经是3.8.*
 
-下载最新得驱动(其实是源代码), 按照README `make install`, 提示没有kernel-devel.
+下载最新的驱动(是源代码发布的), 按照README `make install`, 提示没有kernel-devel.
 
 ```bash
 $ sudo make install
@@ -52,12 +56,12 @@ linux-headers-4.19.0-10-amd64/now 4.19.132-1 amd64 [installed,local]
 ```
 
 想了下, 是使用源代码编译的, 其实编译驱动需要的只是kernel代码而已
-```bash
-sudo ln -s /data/linux_src /usr/src/linux
-```
 
 把/usr/src/linux指向代码目录后, make install OK
 
+```bash
+sudo ln -s /data/linux_src /usr/src/linux
+```
 检查驱动版本, OK, 已经是3.8版本.
 ```bash
 $ sudo modinfo e1000e
@@ -79,4 +83,4 @@ sudo dmesg | grep -i duplex
 
 Done.
 
-看来后面手动从kernel source编译内核, 驱动得多留意.
+看来以后从kernel source编译内核, 驱动得多留意.
