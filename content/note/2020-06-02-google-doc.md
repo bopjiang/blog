@@ -18,6 +18,11 @@ press **Shift** when **click**.
 * Navigate to the destination folder
 * Press “**Add here**”
 
+## New Google docs quickly
+* [new Doc](https://doc.new)
+* [new Sheet](https://sheet.new)
+* [new Slide](https://slides.new)
+
 ## Chrome
 ### disable auto update
 ```bash
