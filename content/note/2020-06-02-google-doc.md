@@ -18,10 +18,16 @@ press **Shift** when **click**.
 * Navigate to the destination folder
 * Press “**Add here**”
 
-## New Google docs quickly
+## Google Docs
+### New Google docs quickly
 * [new Doc](https://doc.new)
 * [new Sheet](https://sheet.new)
 * [new Slide](https://slides.new)
+
+### generate random string in Sheet
+Add customized function as [link](https://yagisanatode.com/2018/08/23/google-sheets-random-alphabetic-random-alphanumeric-and-random-alphanumeric-character-custom-functions/)
+
+`=RANDALPHA(2,0)&RANDALPHA(10, 2)`
 
 ## Chrome
 ### disable auto update
