@@ -39,6 +39,8 @@ https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=199081
 ```bash
 $ sudo vcgencmd measure_temp
 temp=44.4'C
+
+# use `sensors` in Ubuntu given package `lm-sensors` installed.
 ```
 
 ### monitor others
