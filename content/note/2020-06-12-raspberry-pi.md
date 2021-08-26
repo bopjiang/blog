@@ -52,14 +52,16 @@ commands="vcos, ap_output_control, ap_output_post_processing, vchi_test_init, vc
 ### contrl LED
 
 config in `/boot/config.txt`
-```
-#disable ACT and PWR LEDs
-dtparam=act_led_trigger=none
+```ini
+# Disable the PWR LED
 dtparam=pwr_led_trigger=none
-
-#disable ethernet port LEDs
-dtparam=eth0_led=4
-dtparam=eth1_led=4
+dtparam=pwr_led_activelow=off
+# Disable the Activity LED
+dtparam=act_led_trigger=none
+dtparam=act_led_activelow=off
+# Disable ethernet port LEDs
+dtparam=eth_led0=4
+dtparam=eth_led1=4
 ```
 
 or set in bash
