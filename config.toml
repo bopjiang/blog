@@ -41,7 +41,7 @@ disqusShortname = "bopjianggithubio"
 
 [params]
     description = "Happy Coding Monkey"
-    footer = "&copy; [bopjiang](https://bopjiang.github.io) 2020 | [Github](https://github.com/bopjiang) | [Twitter](https://twitter.com/bopjiang)"
+    footer = "&copy; [bopjiang](https://bopjiang.github.io) 2021 | [Github](https://github.com/bopjiang) | [Twitter](https://twitter.com/bopjiang)"
 
   highlightjsVersion = "9.12.0"
   highlightjsCDN = "//cdnjs.cloudflare.com/ajax/libs"
