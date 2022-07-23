@@ -20,3 +20,6 @@ disable_comments: true
 > for love, the search for knowledge, and unbearable pity for the suffering of mankind.
 >
 > --- Bertrand Russell[⁺](http://www.quotationspage.com/quote/3504.html)
+
+
+> 不理政治可以，但迟早有一天政治会理你
