@@ -8,6 +8,7 @@ disable_comments: true
 * Gopher
 * Pythonic Programmer
 * Living in Shenzhen
+* BTW I Use Arch
 
 😀🤑😁😅😉😊😋😎😍
 
