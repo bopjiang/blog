@@ -33,7 +33,7 @@ $ rpm -qa|grep -E "(mariadb|mysql)"
 mysql57-community-release-el7-11.noarch
 mariadb-libs-5.5.68-1.el7.x86_64
 
-yum remove mysql57-community-release-el7-11.noarch  mariadb-libs-5.5.68-1.el7.x86_64
+$ yum remove mysql57-community-release-el7-11.noarch  mariadb-libs-5.5.68-1.el7.x86_64
 
 ```
 
