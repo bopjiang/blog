@@ -26,3 +26,5 @@ disable_comments: true
 > 不理政治可以，但迟早有一天政治会理你
 
 > 悲观者往往正确，乐观者往往成功
+
+> 自助者天助之（God helps those who help themselves）
