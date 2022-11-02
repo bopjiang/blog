@@ -48,3 +48,27 @@ wget https://downloads.mysql.com/archives/get/p/23/file/mysql-community-common-5
 
 rpm -ivh ./mysql-community-common-5.7.38-1.el7.x86_64.rpm ./mysql-community-libs-5.7.38-1.el7.x86_64.rpm ./mysql-community-client-5.7.38-1.el7.x86_64.rpm
 ```
+
+## MySQL Client for Python
+
+MacOS:
+
+```
+brew install mysql-client
+```
+Linux:
+
+```bash
+apt install libmysqlclient-dev
+```
+
+install Python MySQL package
+
+```
+pip install --user mysql-connector-python
+
+pip install --user mysqlclient
+# if OSError: mysql_config not found, run `export PATH=/usr/local/mysql/bin:$PATH` fisrt
+
+pip install --user records
+```
