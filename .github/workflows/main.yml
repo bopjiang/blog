@@ -20,7 +20,7 @@ jobs:
       - name: Deploy the site
         uses: benmatselby/hugo-deploy-gh-pages@v1.4.0
         env:
-          HUGO_VERSION: 0.71.1
+          HUGO_VERSION: 0.141.0
           TARGET_REPO: bopjiang/bopjiang.github.io
           TOKEN: ${{ secrets.TOKEN }}
           #HUGO_ARGS: '-t academic'
