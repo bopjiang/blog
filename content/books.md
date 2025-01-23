@@ -18,3 +18,5 @@ disable_comments: true
 
 ## 科技
 - 芯事, 一本书读懂芯片产业. 2018. ISBN: 9787547840764. [⁺](https://book.douban.com/subject/30303192/)
+- 《绝命毒师》中的科学(The Science of Breaking Bad). 2019. ISBN:9787100227773 https://book.douban.com/subject/36502893/
+
