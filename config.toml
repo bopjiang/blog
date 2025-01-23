@@ -1,6 +1,6 @@
 baseURL = "https://bopjiang.github.io"
 languageCode = "en-us"
-title = "HCM"
+title = "江 Blog"
 theme = "hugo-ivy"
 googleAnalytics = "UA-168084481-1"
 
@@ -31,17 +31,22 @@ shortname = 'bopjianggithubio'
     weight = 4
 
 [[menu.main]]
+    name = "Books"
+    url = "/books/"
+    weight = 5
+
+[[menu.main]]
     name = "Categories"
     url = "/categories/"
-    weight = 5
+    weight = 8
     
 [[menu.main]]
     name = "Tags"
     url = "/tags/"
-    weight = 6
+    weight = 9
 
 [params]
-    description = "Happy Coding Monkey"
+    description = "Jiang in Thinking"
     footer = "&copy; [bopjiang](https://bopjiang.github.io) 2021 | [Github](https://github.com/bopjiang) | [Twitter](https://twitter.com/bopjiang)"
 
   highlightjsVersion = "9.12.0"
