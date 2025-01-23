@@ -85,7 +85,7 @@ Gray的Transaction Processing, 涉及的知识领域已经远远不只数据库�
 - [Bytebytego Newsletter](https://blog.bytebytego.com/).
 
 ### 中文
-- 徐飞. 2019.大数据 浪潮之巅. 公众号: 飞总聊IT
+- 徐飞. 2019. 大数据浪潮之巅. 公众号: 飞总聊IT
 - 盖国强. 2024. 《数据库简史》, 墨天轮社区
 - 吴军. 浪潮之巅, 第四版. 2019. 里面专门一章讲了Oracle的故事.
 
