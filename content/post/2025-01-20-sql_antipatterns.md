@@ -6,6 +6,8 @@ draft: false
 
 这是阅读SQL 反模式(SQL Antipatterns: Avoiding the Pitfalls of Database Programming)的一些笔记.
 
+毕竟是2011多年前的书, 有些建议在当前可能并非最佳实践. 但是书中大部分观点, 放在现在指导我们正确使用关系型数据库仍然不过时.
+
 > 所谓专家, 就是在一个很小的领域里把所有错误都犯过的人
 
 ## 逻辑数据库设计反模式 Logical Database Design Antipatterns
