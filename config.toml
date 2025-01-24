@@ -54,3 +54,7 @@ shortname = 'bopjianggithubio'
   highlightjsLang = ["yaml", "tex", "bash", "go", "python"]
   highlightjsTheme = "github"
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
