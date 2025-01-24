@@ -49,7 +49,7 @@ VALUES (123, 12), (123, 34), (345, 23), (567, 12), (567, 34);
 
 > 对一个字符串做索引的开销会比int高得多.
 
-### Hierarchical Structuere: Always Depend on One’s Parent
+### Hierarchical Structure: Always Depend on One’s Parent
 
 A good book that covers hierarchical queries is Joe Celko’s Trees and Hierarchies in SQL for Smarties [Cel04]. Another book that covers trees and even graphs is SQL Design Patterns [Tro06] by Vadim Tropashko.
 
