@@ -18,13 +18,14 @@ Snowflake的创始人Marcin Żukowski在一个[采访](https://www.youtube.com/c
 
 首先, 大家最关心的还是NoSQL, 看起来这些年MongoDB的营销产生了一些效果.
 > NoSQL不是一个新技术, 在关系模型出现前的1970年代就有了, 譬如存储认证/授权信息的层级目录(hierarchical directories for storing authentication and authorization credentials).
-最近20年, NoSQL出现的本质是大家对互联网产生的大量数据的存储需求, 对数据存储有水平扩展的巨大需求. 讽刺的是, 在NoSQL数据库中大家最希望的特性往往是SQL!
+
+>最近20年, NoSQL出现的本质是大家对互联网产生的大量数据的存储需求, 对数据存储有水平扩展的巨大需求. 讽刺的是, 在NoSQL数据库中大家最希望的特性往往是SQL!
 
 其次, 怎么选择数据库?
 > 选择我们最熟悉和易于维护的数据库. 分布式数据库在大部分场景都不是第一选择. 国外网友经验, 使用PostgreSQL一般不是最差的选择.
 
 > 有了S3之类的稳定存储系统后, 不是所有东西都必须往数据库扔的.
-> 我之前做过最愚蠢的涉及是讲图片的缩略图放入MySQL数据库, 导致存放缩略图的那种表急剧膨胀.
+> 我之前做过最愚蠢的设计是将图片的缩略图放入MySQL数据库, 导致存放缩略图的表急剧膨胀.
 
 有小伙伴问Redis是不是数据库?
 > `It's data structure server!` 得看你怎么使用, 当cache还是存储.
