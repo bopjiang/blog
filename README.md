@@ -1,5 +1,5 @@
 ### new note
 
 ```bash
-hugo new note/2022-07-25-git.md
+hugo new post/2025-07-25-title.md
 ```
