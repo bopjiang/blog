@@ -33,9 +33,12 @@ AWS Database Migration Service（DMS）是一种托管的服务,主要用于数�
 
 ### MySQL 数据源
 - 都要求必须启用二进制日志（binlog）并设置为 ROW 格式.
-- AWS DMS实时同步期间不支持MySQL在线变更工具如(pt-osc, gh-ost)作变更. 阿里云DTS支持gh-os, 但不支持pt-osc
-- AWS DMS不支持MySQL外键
-- AWS DMS Schema同步存在问题, 同步Schema时MySQL的主键, 二级索引会丢失. 
+- AWS DMS实时同步期间不支持MySQL在线变更工具如(pt-osc, gh-ost)作变更. 
+  
+  阿里云DTS支持gh-os, 但不支持pt-osc
+
+- AWS DMS不支持外键
+- AWS DMS Schema同步存在问题, 同步Schema时二级索引会丢失. 
   听说可以通过额外配置 Schema Conversion Tool转换解决, 暂时还未验证.
 
   阿里云的Schema同步会丢失Comment信息.
@@ -45,30 +48,28 @@ AWS Database Migration Service（DMS）是一种托管的服务,主要用于数�
 ### MongoDB
 - AWS DMS仅支持 3.6、4.0、4.2 版本.
 - AWS DMS不支持MongoDB Atlas mongodb+srv://协议.
-
+- MongoDB Atlas不能部署在阿里云上, 网络需要自己打通.
 
 ## 优势与劣势
 
 ### AWS DMS
 **优势：**
-1. 支持多种云环境和本地数据库之间的迁移.
-2. 与 AWS 生态集成,适合已有 AWS 云部署的用户.
-3. Instance和DMS任务不是一一绑定, 一个Instance上可以跑多个DTS task, 这一点值得称赞. 
+1. Instance和DMS任务不是一一绑定, 一个Instance上可以跑多个DTS task, 这一点值得称赞. 
    在全量数据比较大, 但增量CDC数据不大的场景, 可以在全量阶段使用较高配置的机器, 但在增量同步阶段, 使用低配机器降低成本.
-4. DMS监控数据比较完善.
-5. 故障定位比较方便, 有专门的辅助表记录同步/对比失败的库/表信息.
+2. DMS监控数据比较完善.
+3. 故障定位比较方便, 有专门的辅助表记录同步/对比失败的库/表信息.
 
 **劣势：**
 1. 对中国大陆用户, 国内AWS就只有北京和宁夏两个区域,区域覆盖与网络延迟可能存在劣势. 国内AWS Region貌似和国外AWS Region无法互通.
-2. 修改同步配置需要停止迁移任务后再修改, 然后再恢复任务
+2. 修改同步配置会导致同步中断. 同步配置修改需要停止迁移任务后再修改, 然后再恢复任务.
 3. 网络层需要自己打通.
 3. 迁移表中有大字段时, LOB存在问题, 会导致ON UPDATE CURRENT_TIMESTAMP属性的时间字段被误更新, 造成数据不一致.
 ```
 AWS DMS migrates LOB data in two phases:
 
-AWS DMS creates a new row in the target table and populates the row with all data except the associated LOB value.
+- AWS DMS creates a new row in the target table and populates the row with all data except the associated LOB value.
 
-AWS DMS updates the row in the target table with the LOB data.
+- AWS DMS updates the row in the target table with the LOB data.
 ```
 
 实际使用中, 为避免数据不一致问题, 我们一般使用Limited LOB mode, 但是要事先要了解数据中字段的最大长度.
@@ -76,7 +77,7 @@ AWS DMS updates the row in the target table with the LOB data.
 
 ### Aliyun DTS
 **优势：**
-1. 修改同步配置可以在线进行, 不会中断同步任务.
+1. 修改同步配置可在线进行, 不会中断同步任务.
 2. 海外数据中心可以和内地数据中心打通, 而且没有专线的场景, 提供了数据库网关DG方便通过公网隧道进行数据迁移.
 3. 在中国大陆区域有更多的区域可选择.
 4. 支持双向同步.
@@ -91,6 +92,7 @@ AWS DMS updates the row in the target table with the LOB data.
 
 * DMS的全量同步性能很好, 而且可以通过临时提机器规格, 提升并发度提升吞吐. 听说有大数据团队使用DMS把MySQL数据导出到S3, 性能比自己写的导出程序好很多.
 * DMS的增量写入性能, 在跨区域场景存在瓶颈. 譬如在新加坡-深圳的跨区域增量同步, 写入QPS只有20左右, 后面分析原因是增量同步是单线程的, 新加坡-深圳的网络RT在40～50ms左右, 自然QPS上不去.
+  DMS有批量写入的优化选项, 但同步目标是AWS自家的数据库产品时才可以用.
 
 ## 总结
 
@@ -104,7 +106,7 @@ AWS DMS 和 Aliyun DTS 各有千秋,适用的场景也不尽相同.在选择时,
 
 
 ## 参考
-- [AWS DMS] (https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html)
-- [阿里云DTS] (https://help.aliyun.com/zh/dts/product-overview/what-is-dts)
+- [AWS DMS User Guide](https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html)
+- [阿里云DTS文档](https://help.aliyun.com/zh/dts/product-overview/what-is-dts)
 - [Setting LOB support for source databases in an AWS DMS task
 ](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.LOBSupport.html)
