@@ -80,7 +80,6 @@ AWS Database Migration Service（DMS）是一种托管的服务，主要用于�
    - 支持 3.6、4.0、4.2、4.4 版本。
    - 支持 ReplicaSet 和 Sharded Cluster，但对 Sharded Cluster 的性能要求较高。
    - 必须启用 Oplog。
-   - 对于 MongoDB Atlas，需启用 Atlas 的公网访问权限，并配置白名单支持。
 
 ## 优势与劣势
 
@@ -88,31 +87,46 @@ AWS Database Migration Service（DMS）是一种托管的服务，主要用于�
 **优势：**
 1. 支持多种云环境和本地数据库之间的迁移。
 2. 与 AWS 生态集成，适合已有 AWS 云部署的用户。
+3. Instance和DMS任务不是一一绑定， 一个Instance上可以跑多个DTS task， 这一点值得称赞。
+4. 监控做得更好。
 
 **劣势：**
-1. 对中国大陆用户，区域覆盖与延迟可能存在劣势。
-2. 需要额外配置 Schema Conversion Tool 进行复杂转换。
+1. 对中国大陆用户， 国内AWS就只有北京和宁夏两个区域，区域覆盖与网络延迟可能存在劣势。 国内AWS Region貌似和国外AWS Region无法互通。
+2. DMS的Schema同步存在问题， 同步Schema时MySQL的主键， 二级索引会丢失。 听说可以通过额外配置 Schema Conversion Tool转换解决， 我暂时还未验证。。
+3. 对MySQL DDL变更支持不好
+4. 迁移表中有大字段时， LOB存在问题, 会导致ON UPDATE CURRENT_TIMESTAMP属性的时间字段被误更新， 造成数据不一致。
+```
+AWS DMS migrates LOB data in two phases:
+
+AWS DMS creates a new row in the target table and populates the row with all data except the associated LOB value.
+
+AWS DMS updates the row in the target table with the LOB data.
+```
+5. 修改同步配置需要停止迁移任务后再修改， 然后再恢复任务
+6. 网络需要自己打通
+7. 不支持外键
+
 
 ### Aliyun DTS
 **优势：**
 1. 与阿里云数据库和大数据服务深度整合。
 2. 在中国大陆区域有更好的性能与支持。
+3. 修改同步配置可以在线进行， 不会中断同步任务。
+4. 海外数据中心可以和内地数据中心打通， 而且没有专线的场景， 提供了数据库网关DG方便通过公网隧道进行数据迁移。
+
 
 **劣势：**
 1. 对于非阿里云环境的支持相对有限。
 2. 全球区域覆盖范围不如 AWS 广泛。
+3. DTS的Instance是和迁移任务一一绑定的， 而且配置只能升级不能降级， 比较坑。 大部分场景， 全量同步阶段， 会需要比较高的配置， 加速同步过程。 云厂商的CPU, 内存， 网络， 磁盘都跟实例规格相关。
+4. 阿里云VM管理这块， 各种规格命名混乱。 很多产品的实例规格跟阿里云云主机的规格完全对不上号， 以至于我们都怀疑这些阿里云产品究竟有没有跑在自己的云主机平台上？
+5. Serverless还是要指定计算单元个数。
 
-## 使用场景分析
 
-### 适合使用 AWS DMS 的场景
-1. 企业已有 AWS 云环境，计划在其内部或跨区域迁移数据。
-2. 涉及多种数据库类型（如关系型数据库与 NoSQL 数据库）的复杂架构。
-3. 需要全球化部署和支持的场景。
+## 性能
 
-### 适合使用 Aliyun DTS 的场景
-1. 主要使用阿里云数据库服务（如 RDS、PolarDB、AnalyticDB）的用户。
-2. 需要在中国大陆及亚太区域实现高效、低延迟的数据同步。
-3. 对实时数据订阅有强需求，例如构建流式数据处理架构。
+* DMS的全量同步性能很好， 而且可以通过临时提机器规格， 提升并发度提升吞吐。 听说有大数据团队使用DMS把MySQL数据导出到S3, 性能比自己写的导出程序好很多。
+* DMS的增量写入性能， 在跨区域场景存在瓶颈。 譬如在新加坡-深圳的跨区域增量同步， 写入QPS只有20左右， 后面分析原因是增量同步是单线程的， 新加坡-深圳的网络RT在40～50ms左右， 自然QPS上不去。
 
 ## 总结
 
