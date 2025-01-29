@@ -7,6 +7,7 @@ disable_comments: true
 
 
 ## 计算机
+- 计算机程序的构造和解释(原书第2版) (SICP: Structure and Interpretation of Computer Programs). 2004. ISBN: 9787111135104. [⁺](https://book.douban.com/subject/1148282/)
 - SQL反模式 (SQL Antipatterns: Avoiding the Pitfalls of Database Programming). 2011. ISBN: 9787115261274. [⁺](https://book.douban.com/subject/6800774/)
 - 大型网站技术架构. 2013. ISBN: 9787121212000. [⁺](https://book.douban.com/subject/25723064/)
 - 数据库系统内幕 (Database Internals). 2020. ISBN: 9787111655169. [⁺](https://book.douban.com/subject/35078474/)
