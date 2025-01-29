@@ -11,6 +11,8 @@ disable_comments: true
 - SQL反模式 (SQL Antipatterns: Avoiding the Pitfalls of Database Programming). 2011. ISBN: 9787115261274. [⁺](https://book.douban.com/subject/6800774/)
 - 大型网站技术架构. 2013. ISBN: 9787121212000. [⁺](https://book.douban.com/subject/25723064/)
 - 数据库系统内幕 (Database Internals). 2020. ISBN: 9787111655169. [⁺](https://book.douban.com/subject/35078474/)
+- Understanding MySQL Internals. 2007. ISBN: 9780596009571 [⁺](https://book.douban.com/subject/1924288/)
+- High Performance MySQL, 4th Edition. 2022. ISBN: 9781492080442 [⁺](https://book.douban.com/subject/35319975/)
 
 ## 科技
 - 芯事, 一本书读懂芯片产业. 2018. ISBN: 9787547840764. [⁺](https://book.douban.com/subject/30303192/)
