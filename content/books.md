@@ -29,6 +29,7 @@ disable_comments: true
 - 去家访. 2024. ISBN: 9787020184262. [⁺](https://book.douban.com/subject/36698410/)
 
 ## English
+- Masters of Doom: How Two Guys Created an Empire and Transformed Pop Culture. 2004. ISBN: 9780812972153. [⁺](https://book.douban.com/subject/1438119/)
 - River Town: Two Years on the Yangtze. 2010. ISBN: 9780062028983. [⁺](https://book.douban.com/subject/24763262/)
 - Oracle Bones: A Journey Through Time in China. 2007. ISBN: 9780060826581.
 - Country Driving: A Chinese Road Trip. 2011. ISBN: 9780061804106. [⁺](https://book.douban.com/subject/5978077/)
