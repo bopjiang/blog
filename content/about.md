@@ -7,6 +7,7 @@ disable_comments: true
 
 * Gopher
 * Pythonic Programmer
+* Learning Lisp & Rust
 * Living in Shenzhen
 * BTW I Use Arch
 
