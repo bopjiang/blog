@@ -37,8 +37,10 @@ DBA同学听从了建议, 升级了一倍实例规格(从db.r5.xlarge到db.r5.2x
 AWS Aurora不是完全的Serverless服务, 计算节点也是EC2 Instance.
 
 * Aurora的计算节点, 不光CPU/内存, 本地磁盘/网络都需要监控.
-* Aurora不要开启General Log. 可以使用Audit Log替代General Log功能.
-* 数据库系统级别的变更操作日志, 没有记录跟踪.
+* Aurora不要开启General Log. 可以使用Audit Log替代General Log功能. <br/>
+  Aurora的Audit Log貌似没有写Instance Local Storage.
+* 数据库系统级别的变更操作, 需要有统一记录. <br/>
+  出现问题时, 可以根据变更历史分析潜在的原因, 毕竟绝大部分生产环境问题都是变更导致的.
 
 
 <!---
