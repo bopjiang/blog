@@ -9,27 +9,18 @@ draft: false
 ## Aurora Instance Local Storage Full导致数据库宕机
 
 这个问题的起因是有DBA同事想定位某个生产环境Aurora数据库CPU毛刺问题, 想查看下CPU上升时有哪些SQL正在执行.
+初衷是好的, 按照他之前的运维经验, 打开General Log, 如果系统性能没有明显下降, 在产线采集一段时间应该不会有什么问题.
 
-初衷是好的, 安装他之前的运维经验, 打开General Log, 如果系统性能没有明显下降, 在产线采集一段时间应该不会有什么问题.
+偏偏就在打开General Log的那天凌晨, Aurora数据库宕机了, 数据库突然连不上, 没有任何提示.紧急联系AWS的最高级别技术支持, 5分钟左右就有人介入处理了(好像要买专门的support服务才有这个待遇). 当时给的建议是, 实例规格不够, 让我们升级实例规格. DBA同学听从了建议, 升级了一倍实例规格(从db.r5.xlarge到db.r5.2xlarge).
 
-偏偏就在打开General Log的那天凌晨, Aurora数据库宕机了, 数据库突然连不上, 没有任何提示.
-
-紧急联系AWS的最高级别技术支持, 5分钟左右就有人介入处理了(好像要买专门的support服务才有这个待遇). 当时给的建议是, 实例规格不够, 让我们升级实例规格.
-
-DBA同学听从了建议, 升级了一倍实例规格(从db.r5.xlarge到db.r5.2xlarge).
-
-可惜, 扛了几天, 数据库又跪了!
-
-这次Support才分析到数据库宕机的本质原因是Instance Local Storage Full, 给出的建议还是我们升级规格, 到db.r5.4xlarge.
+可惜, 扛了几天, 数据库又跪了! 这次Support才分析到数据库宕机的本质原因是Instance Local Storage Full, 给出的建议还是我们升级规格, 到db.r5.4xlarge.
 
 这时候老板们就怒了, 发出了灵魂拷问:
 * 升级到db.r5.2xlarge后, 数据库负载很低, 1分钟级别的CPU占有率P99值已经不到10%, 再升级一倍不是浪费钱吗?
 * Aurora不是号称存算分离吗? 为什么一个小小的Instance Local Storage模块会导致数据库崩溃.
 * 到底是什么原因导致Local Storage Full?
 
-这时候DBA同学才小心翼翼的道出, 前几天为了配合开发定位问题, 打开了General Log.
-
-关闭General Log后, Local Storage没有再继续下降, 问题解决.
+这时候DBA同学才小心翼翼的道出, 前几天为了配合开发定位问题, 打开了General Log.关闭General Log后, Local Storage没有再继续下降, 问题解决. 
 
 至于后续AWS内部怎么定性这个问题, 就不得而知了.
 
