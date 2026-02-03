@@ -2,7 +2,7 @@ baseURL = "https://bopjiang.github.io"
 languageCode = "en-us"
 title = "江 Blog"
 theme = "hugo-ivy"
-googleAnalytics = "UA-168084481-1"
+googleAnalytics = "G-VPQ6VV8M1S"
 
 [services.disqus]
 shortname = 'bopjianggithubio'
