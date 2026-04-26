@@ -692,6 +692,23 @@ TiDB回答的是: 能不能用开源方式提供MySQL兼容的分布式SQL和HTA
 
 复杂度可以在数据库内核里, 在存储层里, 在SQL执行层里, 在schema设计里, 或者在应用架构里. 没有系统能消灭复杂度, 好系统只是把复杂度放在最值得放的位置.
 
+## 后记: TiDB Serverless
+
+TiDB Serverless值得单独补一笔, 因为它容易被放进"分布式SQL"这个大篮子里, 但它解决的问题和自建TiDB或TiDB Cloud Dedicated并不完全一样.
+
+更准确地说, 今天TiDB Cloud文档里的资源形态主要是Starter, Essential和Dedicated. 过去常说的TiDB Serverless, 在产品体验上更接近Starter/Essential这条路线: 用户不直接管理TiDB, TiKV, PD这些组件, 也不需要先规划一组固定集群节点, 而是把数据库当成一个按需使用的云服务入口.
+
+这改变了TiDB的使用门槛, 但没有改变分布式数据库的基本物理事实. 底层仍然要处理Raft复制, MVCC, 事务冲突, range split, hotspot和分布式执行. Serverless化主要是把容量规划、集群运维、连接入口、弹性和计费包装成更轻的产品体验, 而不是让分布式事务的代价消失.
+
+所以TiDB Serverless适合这些场景:
+
+* 新项目或中小业务, 想用MySQL协议和分布式SQL能力, 但不想先承担完整集群运维.
+* 负载有波动, 希望容量和成本更接近实际使用.
+* 开发者体验优先, 需要快速创建、连接、验证schema和查询模型.
+* 边缘函数、Serverless应用或轻量后端, 更关心低运维入口而不是完全控制底层拓扑.
+
+但如果系统已经进入明确的大规模生产负载, 需要强隔离、可预测容量、复杂网络控制、稳定性能基线和更细粒度的运维治理, Dedicated或自建TiDB仍然是更清晰的边界. Serverless降低的是"开始使用TiDB"的门槛, 不是替代所有TiDB部署形态.
+
 ## 参考资料
 
 * [Spanner: TrueTime and external consistency](https://cloud.google.com/spanner/docs/true-time-external-consistency)
@@ -717,6 +734,7 @@ TiDB回答的是: 能不能用开源方式提供MySQL兼容的分布式SQL和HTA
 * [GCP Cloud SQL high availability](https://cloud.google.com/sql/docs/mysql/high-availability)
 * [Google Cloud Persistent Disk](https://cloud.google.com/compute/docs/disks/persistent-disks)
 * [Google Cloud regional disk synchronous replication](https://cloud.google.com/compute/docs/disks/about-regional-persistent-disk)
+* [What is TiDB Cloud](https://docs.pingcap.com/tidbcloud/tidb-cloud-intro)
 * [TiDB Cloud Service Level Agreement](https://www.pingcap.com/legal/service-level-agreement-for-tidb-cloud-services/)
 * [High Availability in TiDB Cloud](https://docs.pingcap.com/tidbcloud/serverless-high-availability/)
 * [TiDB Optimistic Transaction Model](https://docs.pingcap.com/tidb/stable/optimistic-transaction/)
