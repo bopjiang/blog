@@ -1,0 +1,41 @@
+/* Site-level layout overrides. Keep these outside the theme for easier updates. */
+@media screen and (min-width: 1261px) {
+  body {
+    width: 1260px;
+  }
+
+  .main {
+    width: 1040px;
+  }
+}
+
+@media screen and (max-width: 1260px) {
+  body {
+    width: auto;
+    max-width: 960px;
+  }
+}
+
+.main table {
+  width: 100%;
+  table-layout: fixed;
+  word-break: normal;
+}
+
+.main th,
+.main td {
+  overflow-wrap: anywhere;
+  vertical-align: top;
+}
+
+@media screen and (max-width: 560px) {
+  .main table {
+    display: block;
+    overflow-x: auto;
+    table-layout: auto;
+  }
+}
+
+.main pre code {
+  max-width: 100%;
+}
