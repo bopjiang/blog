@@ -1,13 +1,8 @@
 ---
-title: "云原生关系型数据库的架构取舍: Spanner, F1, Aurora, AWS RDS, AlloyDB, GCP Cloud SQL和TiDB"
+title: "云原生关系型数据库: 一致性、存储与复杂度"
 date: 2026-04-26T15:35:00+08:00
 draft: false
 slug: "cloud-native-relational-database-architecture"
-aliases:
-  - /post/2026/04/26/云原生关系型数据库的架构取舍-spanner-f1-aurora-alloydb-cloud-sql和tidb/
-  - /post/2026/04/26/云原生关系型数据库的架构取舍-spanner-f1-aurora-rds-alloydb-cloud-sql和tidb/
-  - /post/2026/04/26/云原生关系型数据库的架构取舍-spanner-f1-aurora-rds-alloydb-gcp-cloud-sql和tidb/
-  - /post/2026/04/26/云原生关系型数据库的架构取舍-spanner-f1-aurora-aws-rds-alloydb-gcp-cloud-sql和tidb/
 categories:
   - tech
 ---
