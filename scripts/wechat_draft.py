@@ -10,21 +10,25 @@ dangerous network action behind --create-draft.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html
 import json
 import mimetypes
 import os
 import re
+import struct
 import sys
 import time
 import urllib.parse
 import urllib.request
+import zlib
 from pathlib import Path
 from typing import Any
 
 
 API_BASE = "https://api.weixin.qq.com/cgi-bin"
 INLINE_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
+DEFAULT_COVER_DIR = Path("wechat/generated-covers")
 
 
 def die(message: str) -> None:
@@ -377,6 +381,68 @@ def upload_thumb(access_token: str, file_path: Path) -> str:
     return str(media_id)
 
 
+def png_chunk(kind: bytes, data: bytes) -> bytes:
+    checksum = zlib.crc32(kind)
+    checksum = zlib.crc32(data, checksum)
+    return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", checksum & 0xFFFFFFFF)
+
+
+def write_png(path: Path, width: int, height: int, pixels: bytes) -> None:
+    raw = bytearray()
+    stride = width * 3
+    for y in range(height):
+        raw.append(0)
+        raw.extend(pixels[y * stride : (y + 1) * stride])
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(
+        b"\x89PNG\r\n\x1a\n"
+        + png_chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
+        + png_chunk(b"IDAT", zlib.compress(bytes(raw), 9))
+        + png_chunk(b"IEND", b"")
+    )
+
+
+def generate_default_cover(title: str, slug: str) -> Path:
+    """Generate a deterministic PNG cover.
+
+    This intentionally avoids font rendering. WeChat requires a cover
+    thumb_media_id for drafts, and a simple generated image is better than
+    failing the automation when a post has no explicit cover.
+    """
+
+    width = 900
+    height = 383
+    digest = hashlib.sha256(title.encode("utf-8")).digest()
+    left = (32 + digest[0] % 96, 56 + digest[1] % 96, 96 + digest[2] % 96)
+    right = (96 + digest[3] % 96, 32 + digest[4] % 96, 56 + digest[5] % 96)
+    accent = (210 + digest[6] % 40, 210 + digest[7] % 40, 210 + digest[8] % 40)
+
+    pixels = bytearray()
+    for y in range(height):
+        for x in range(width):
+            t = x / max(width - 1, 1)
+            shade = int(18 * y / max(height - 1, 1))
+            r = int(left[0] * (1 - t) + right[0] * t) - shade
+            g = int(left[1] * (1 - t) + right[1] * t) - shade
+            b = int(left[2] * (1 - t) + right[2] * t) - shade
+
+            if 58 <= x <= width - 58 and 54 <= y <= height - 54:
+                if x in {58, width - 58} or y in {54, height - 54}:
+                    r, g, b = accent
+
+            if (x + y + digest[9]) % 97 == 0:
+                r = min(255, r + 18)
+                g = min(255, g + 18)
+                b = min(255, b + 18)
+
+            pixels.extend((max(0, r), max(0, g), max(0, b)))
+
+    output = DEFAULT_COVER_DIR / f"{slug}.png"
+    write_png(output, width, height, bytes(pixels))
+    return output
+
+
 def create_draft(access_token: str, article: dict[str, Any]) -> str:
     url = f"{API_BASE}/draft/add?access_token={urllib.parse.quote(access_token)}"
     result = http_json(url, {"articles": [article]})
@@ -406,6 +472,7 @@ def main() -> int:
     parser.add_argument("--author", default=os.getenv("WECHAT_AUTHOR", ""), help="Article author")
     parser.add_argument("--thumb-media-id", default=os.getenv("WECHAT_THUMB_MEDIA_ID", ""))
     parser.add_argument("--cover", type=Path, default=Path(os.getenv("WECHAT_COVER_IMAGE", "")) if os.getenv("WECHAT_COVER_IMAGE") else None)
+    parser.add_argument("--no-auto-cover", action="store_true", help="Fail instead of generating a default cover image")
     args = parser.parse_args()
 
     post_path = args.post
@@ -415,6 +482,7 @@ def main() -> int:
     front_matter, body = parse_front_matter(post_path.read_text(encoding="utf-8"))
     title = str(front_matter.get("title") or post_path.stem)
     description = str(front_matter.get("description") or "")
+    slug = post_slug(post_path, front_matter)
 
     tagged_for_weixin = has_weixin_tag(front_matter)
     if not args.force and not tagged_for_weixin:
@@ -441,7 +509,10 @@ def main() -> int:
         cover_path = local_image_path(post_path, cover_ref)
     if args.create_draft and not thumb_media_id:
         if not cover_path:
-            die("set WECHAT_THUMB_MEDIA_ID, WECHAT_COVER_IMAGE, or front matter cover/image/images")
+            if args.no_auto_cover:
+                die("set WECHAT_THUMB_MEDIA_ID, WECHAT_COVER_IMAGE, or front matter cover/image/images")
+            cover_path = generate_default_cover(title, slug)
+            print(f"generated default cover: {cover_path}")
         if not cover_path.exists():
             die(f"cover image not found: {cover_path}")
         if not access_token:
@@ -450,7 +521,6 @@ def main() -> int:
 
     source_url = ""
     base_url = os.getenv("BLOG_BASE_URL", "")
-    slug = post_slug(post_path, front_matter)
     if base_url and post_path.parts[:2] == ("content", "post"):
         date = str(front_matter.get("date") or "")
         match = re.match(r"(\d{4})-(\d{2})-(\d{2})", date)

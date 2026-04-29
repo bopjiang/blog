@@ -20,11 +20,17 @@ Create a WeChat draft:
 ```bash
 export WECHAT_APP_ID=...
 export WECHAT_APP_SECRET=...
-export WECHAT_THUMB_MEDIA_ID=...
 make wechat-draft POST=content/post/example.md
 ```
 
-If `WECHAT_THUMB_MEDIA_ID` is not set, provide a cover image with one of:
+Cover priority:
+
+1. `WECHAT_THUMB_MEDIA_ID`
+2. `WECHAT_COVER_IMAGE`
+3. front matter `cover`, `thumbnail`, `image`, or `images`
+4. generated default PNG cover
+
+If you want to provide an explicit cover image, use one of:
 
 ```bash
 export WECHAT_COVER_IMAGE=static/images/cover.png
@@ -35,6 +41,8 @@ or front matter:
 ```yaml
 cover: /images/cover.png
 ```
+
+The WeChat API still needs a `thumb_media_id` for drafts. If no cover is configured, the script generates a simple default PNG cover and uploads it automatically.
 
 The script does not publish the draft. It only creates a draft in the WeChat draft box.
 
@@ -49,7 +57,6 @@ Configure these GitHub repository secrets:
 ```text
 WECHAT_APP_ID
 WECHAT_APP_SECRET
-WECHAT_THUMB_MEDIA_ID
 ```
 
 Optional repository variables:
