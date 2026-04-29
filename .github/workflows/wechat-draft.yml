@@ -1,0 +1,82 @@
+name: Create WeChat Drafts
+
+on:
+  push:
+    branches:
+      - draft
+      - wx
+    paths:
+      - 'content/post/**/*.md'
+      - 'scripts/wechat_draft.py'
+      - '.github/workflows/wechat-draft.yml'
+  workflow_dispatch:
+    inputs:
+      post:
+        description: 'Optional single post path, for example content/post/example.md'
+        required: false
+        type: string
+
+jobs:
+  draft:
+    name: Create drafts for changed posts
+    runs-on: ubuntu-latest
+    env:
+      WECHAT_APP_ID: ${{ secrets.WECHAT_APP_ID }}
+      WECHAT_APP_SECRET: ${{ secrets.WECHAT_APP_SECRET }}
+      WECHAT_THUMB_MEDIA_ID: ${{ secrets.WECHAT_THUMB_MEDIA_ID }}
+      WECHAT_AUTHOR: ${{ vars.WECHAT_AUTHOR }}
+      BLOG_BASE_URL: ${{ vars.BLOG_BASE_URL }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Create drafts
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          manual_post="${{ github.event.inputs.post || '' }}"
+
+          if [[ -n "$manual_post" ]]; then
+            files=("$manual_post")
+          else
+            after="${{ github.sha }}"
+
+            if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+              before="$(git rev-parse "$after^" 2>/dev/null || git rev-list --max-parents=0 "$after")"
+            else
+              before="${{ github.event.before }}"
+              if [[ -z "$before" || "$before" == "0000000000000000000000000000000000000000" ]]; then
+                before="$(git rev-list --max-parents=0 "$after")"
+              fi
+            fi
+
+            mapfile -t files < <(
+              git diff --name-only --diff-filter=AM "$before" "$after" -- content/post |
+                grep -E '\.md$' || true
+            )
+          fi
+
+          if [[ "${#files[@]}" -eq 0 ]]; then
+            echo "No changed post markdown files."
+            exit 0
+          fi
+
+          for post in "${files[@]}"; do
+            if [[ ! -f "$post" ]]; then
+              echo "Skip missing file: $post"
+              continue
+            fi
+
+            echo "Processing $post"
+            python3 scripts/wechat_draft.py --create-draft --skip-untagged "$post"
+          done

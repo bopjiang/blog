@@ -401,6 +401,7 @@ def main() -> int:
     parser.add_argument("post", type=Path, help="Markdown post path")
     parser.add_argument("--create-draft", action="store_true", help="Call WeChat API and create a draft")
     parser.add_argument("--force", action="store_true", help="Bypass the required weixin tag check")
+    parser.add_argument("--skip-untagged", action="store_true", help="Exit successfully when the post has no weixin tag")
     parser.add_argument("--out", type=Path, default=Path("wechat/exported"), help="Dry-run output directory")
     parser.add_argument("--author", default=os.getenv("WECHAT_AUTHOR", ""), help="Article author")
     parser.add_argument("--thumb-media-id", default=os.getenv("WECHAT_THUMB_MEDIA_ID", ""))
@@ -415,7 +416,11 @@ def main() -> int:
     title = str(front_matter.get("title") or post_path.stem)
     description = str(front_matter.get("description") or "")
 
-    if not args.force and not has_weixin_tag(front_matter):
+    tagged_for_weixin = has_weixin_tag(front_matter)
+    if not args.force and not tagged_for_weixin:
+        if args.skip_untagged:
+            print(f"skip untagged post: {post_path}")
+            return 0
         die(f"{post_path} does not have required tag: weixin")
 
     access_token: str | None = None
@@ -477,7 +482,7 @@ def main() -> int:
     output.write_text(content, encoding="utf-8")
     print(f"dry-run html: {output}")
     print(f"title: {title}")
-    print(f"has weixin tag: {has_weixin_tag(front_matter)}")
+    print(f"has weixin tag: {tagged_for_weixin}")
     print("network: skipped; pass --create-draft to create a WeChat draft")
     return 0
 
