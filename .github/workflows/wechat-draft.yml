@@ -19,7 +19,9 @@ on:
 jobs:
   draft:
     name: Create drafts for changed posts
-    runs-on: ubuntu-latest
+    runs-on:
+      - self-hosted
+      - docker-runner-pi5
     env:
       WECHAT_APP_ID: ${{ secrets.WECHAT_APP_ID }}
       WECHAT_APP_SECRET: ${{ secrets.WECHAT_APP_SECRET }}
@@ -34,15 +36,11 @@ jobs:
           fetch-depth: 0
           submodules: true
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
       - name: Create drafts
         shell: bash
         run: |
           set -euo pipefail
+          python3 --version
 
           manual_post="${{ github.event.inputs.post || '' }}"
 
