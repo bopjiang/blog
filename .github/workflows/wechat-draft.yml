@@ -21,7 +21,7 @@ jobs:
     name: Create drafts for changed posts
     runs-on:
       - self-hosted
-      - docker-runner-pi5
+      - docker
     env:
       WECHAT_APP_ID: ${{ secrets.WECHAT_APP_ID }}
       WECHAT_APP_SECRET: ${{ secrets.WECHAT_APP_SECRET }}
