@@ -1,6 +1,6 @@
 baseURL = "https://bopjiang.github.io"
 languageCode = "en-us"
-title = "江 Blog"
+title = "江博"
 theme = "hugo-ivy"
 googleAnalytics = "G-VPQ6VV8M1S"
 
