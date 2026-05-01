@@ -13,6 +13,8 @@ Wise可以用于多币种账户和国际转账.
 
 * [Wise邀请链接](https://wise.com/invite/dic/jiaj128)
 
+通过这个邀请链接注册Wise, 朋友可以获得最高4500元人民币额度的免费转账.
+
 ## Linode
 
 Linode可以用于VPS、云服务器和开发测试环境.
