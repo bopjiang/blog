@@ -34,6 +34,10 @@ shortname = 'bopjianggithubio'
     name = "Books"
     url = "/books/"
     weight = 5
+[[menu.main]]
+    name = "薅羊毛"
+    url = "/earn/"
+    weight = 6
 
 [[menu.main]]
     name = "Categories"
