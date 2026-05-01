@@ -3,8 +3,7 @@ name: Create WeChat Drafts
 on:
   push:
     branches:
-      - draft
-      - wx
+      - master
     paths:
       - 'content/post/**/*.md'
       - 'scripts/wechat_draft.py'
