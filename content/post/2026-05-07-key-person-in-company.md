@@ -45,7 +45,7 @@ tags:
 
 ## DJI北美的Colin Guinn
 
-DJI早期在北美市场的故事里, Colin Guinn是一个很有代表性的关键人物. 他曾共同创立并担任DJI North America的CEO, 后来加入3D Robotics. 美国国会资料里对他的介绍提到, 他参与推动了DJI Phantom这类早期消费级无人机产品, 并负责过销售、市场和战略产品开发.
+DJI早期在北美市场的故事里, Colin Guinn是一个很有代表性的关键人物. 他曾共同创立并担任DJI North America的CEO, 后来加入3D Robotics. 他参与过DJI Phantom的早期推广, 也承担过销售、市场和产品策略工作.
 
 这个例子有意思的地方在于: DJI本质上是一家工程能力极强的公司. 但消费级无人机不是只靠工程参数就能卖出去.
 
