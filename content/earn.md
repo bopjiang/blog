@@ -23,4 +23,12 @@ Linode可以用于VPS、云服务器和开发测试环境.
 
 通过这个邀请链接注册Linode, 并在新账户中添加有效付款方式后, 可以获得100美元、有效期60天的credit.
 
+## Google One
+
+Google One可以用于Google存储空间和AI相关订阅服务.
+
+* [Google One邀请链接](https://g.co/g1referral/R6FMCZ1Y)
+
+通过这个邀请链接订阅, 朋友可以获得4个月的Google AI Pro试用.
+
 使用邀请链接可能会给你或我带来奖励, 具体以各服务页面显示为准.
