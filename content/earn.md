@@ -31,4 +31,10 @@ Google One可以用于Google存储空间和AI相关订阅服务.
 
 通过这个邀请链接订阅, 朋友可以获得4个月的Google AI Pro试用.
 
+## DMIT
+
+DMIT可以用于VPS、云服务器和网络服务.
+
+* [DMIT邀请链接](https://www.dmit.io/aff.php?aff=22563)
+
 使用邀请链接可能会给你或我带来奖励, 具体以各服务页面显示为准.
