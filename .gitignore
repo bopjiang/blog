@@ -3,3 +3,9 @@ public
 wechat/exported/
 wechat/generated-covers/
 __pycache__/
+
+
+
+# Ignore Emacs/Vim temporary, lock, and auto-save files
+#*#
+.#*
