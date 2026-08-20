@@ -10,9 +10,9 @@ categories:
 
 
 <div style="color: #1e40af;">
-  <p>翻译了下tailscale写的一篇SQLite事故顾盼, 有几个有意思的点:</p>
+  <p>翻译了下tailscale写的一篇SQLite事故复盘, 有几个有意思的点:</p>
   <ul>
-    <li>tailscale用了最简单的SQLite+分片 存储他们的控制平面数据, 没有分布式数据库, 没有etcd!</li>
+    <li>tailscale用了最简单的SQLite+分片 存储他们的控制平面数据, 没有PostgreSQL, 没有分布式数据库, 没有etcd!</li>
     <li>一个问题如果没找到重现条件, 无法重现, 是非常难以定位的. 相反, 一旦找到重现条件, 定位就容易了.</li>
     <li>数据恢复时, SQLite也有WAL的日志, 但是tailscale没有通过解析WAL的方式构建数据修复的pipeline, 而是通过记录执行的SQL语句再重放. 显然引入WAL会增加整个问题的复杂度, 而且不保证WAL没有问题.</li>
     <li>强如tailscale的技术团队, 也需要更专业的SQLite厂家技术支持. 我们很多团队动不动就要魔改PostgreSQL/MySQL, 搞出来的系统可靠性如何自己可能都说不清楚.</li>
