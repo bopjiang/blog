@@ -9,15 +9,16 @@ categories:
 ---
 
 
-<div style="color: #2563eb;">
+<div style="color: #1e40af;">
   <p>翻译了下tailscale写的一篇SQLite事故顾盼, 有几个有意思的点:</p>
   <ul>
-    <li>tailscale用了最简单的SQLite+分片 存储他们的控制平面数据, 没有复杂的分布式数据库, 没有etcd!</li>
+    <li>tailscale用了最简单的SQLite+分片 存储他们的控制平面数据, 没有分布式数据库, 没有etcd!</li>
     <li>一个问题如果没找到重现条件, 无法重现, 是非常难以定位的. 相反, 一旦找到重现条件, 定位就容易了.</li>
     <li>数据恢复时, SQLite也有WAL的日志, 但是tailscale没有通过解析WAL的方式构建数据修复的pipeline, 而是通过记录执行的SQL语句再重放. 显然引入WAL会增加整个问题的复杂度, 而且不保证WAL没有问题.</li>
-    <li>强入tailscale的技术团队, 也需要更专业的SQLite厂家技术支持. 我们很多团队动不动就要魔改PostgreSQL/MySQL, 搞出来的系统可靠性如何自己可能都说不清楚.</li>
-    <li>最后这个问题本质原因是tailscale没有按照常规的方法使用SQLite, 他们自己频繁的checkpoint, 导致出问题的概率放大了. 很多底层系统老老实实遵循大家最常用的使用模式, 是最稳妥的方法. 记得很久之前TX团队也踩过etcd认证的坑.</li>
+    <li>强如tailscale的技术团队, 也需要更专业的SQLite厂家技术支持. 我们很多团队动不动就要魔改PostgreSQL/MySQL, 搞出来的系统可靠性如何自己可能都说不清楚.</li>
+    <li>最后这个问题本质原因是tailscale没有按照常规的方法使用SQLite, 自己频繁的checkpoint, 导致bug出现的概率放大了. 很多底层系统老老实实遵循大家最常用的使用模式, 是最稳妥的方法. 记得很久之前TX团队也踩过etcd认证的坑.</li>
   </ul>
+  <p>自从<a href="https://x.com/bradfitz">@bradfitz</a>从Go团队跳槽到了Tailscale, 就一直关注和使用他们的产品, 还是非常牛的!</p>
 </div>
 
 ---------
